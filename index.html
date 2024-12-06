@@ -6,40 +6,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QuestNest Image Generator</title>
     <script src="https://unpkg.com/htmx.org@1.6.1"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
-<body>
-    <h1>HTMX GET Request Example</h1>
-    <button hx-get="http://localhost:8080" hx-target="#response">Click me to GET Root of the API</button>
-    <div id="response"></div>
+<body class="container">
+    <div class="d-flex justify-content-between align-items-center">
+        <h1 class="my-4">QuestNest Image Generator</h1>
+        <a href="https://www.questnestshop.com">
+            <img src="logo.jpeg" alt="QuestNest Logo" style="height: 200px;">
+        </a>
+    </div>
+    <button class="btn btn-primary" hx-get="http://localhost:8080" hx-target="#response">Click me to GET Root of the
+        API</button>
+    <div id="response" class="mt-3"></div>
 
-    <h1>HTMX POST Request Example - upload file, return JSON</h1>
+    <!-- <h1 class="my-4">HTMX POST Request Example - upload file, return JSON</h1>
     <form hx-encoding='multipart/form-data' hx-post='http://localhost:8080/upload-image/'
         _='on htmx:xhr:progress(loaded, total) set #progress.value to (loaded/total)*100'>
-        <input type='file' name='file'>
-        <button>
+        <div class="form-group">
+            <input type='file' name='file' class="form-control-file">
+        </div>
+        <button class="btn btn-primary">
             Upload
         </button>
-        <progress id='progress' value='0' max='100'></progress>
-    </form>
+        <progress id='progress' value='0' max='100' class="mt-3 w-100"></progress>
+    </form> -->
 
-    <h1>HTMX POST Request Example - upload multiple images and email, return JSON</h1>
-    <!-- curl -X 'POST' \
-    'http://localhost:8080/generate-image/?email=james.twose2711%40gmail.com' \
-    -H 'accept: application/json' \
-    -H 'Content-Type: multipart/form-data' \
-    -F 'user_image=@frank.jpg;type=image/jpeg' \
-    -F 'background_image=@background.jpg;type=image/jpeg' \
-    -F 'foreground_image=@foreground.png;type=image/png' -->
     <form hx-encoding='multipart/form-data' hx-post='http://localhost:8080/generate-image/'
         _='on htmx:xhr:progress(loaded, total) set #progress.value to (loaded/total)*100'>
-        <input type='email' name='email' placeholder='Email'>
-        <input type='file' name='user_image'>
-        <input type='file' name='background_image'>
-        <input type='file' name='foreground_image'>
-        <button>
+        <div class="form-group">
+            <input type='email' name='email' placeholder='Email' class="form-control">
+        </div>
+        <div class="form-group">
+            <h5>Upload Image of person</h5>
+            <input type='file' name='user_image' class="form-control-file">            
+        </div>
+        <div class="form-group">
+            <h5>Upload Background Image</h5>
+            <input type='file' name='background_image' class="form-control-file">
+        </div>
+        <div class="form-group">
+            <h5>Upload Foreground Image</h5>
+            <input type='file' name='foreground_image' class="form-control-file">
+        </div>
+        <button class="btn btn-primary">
             Generate Image
         </button>
-        <progress id='progress' value='0' max='100'></progress>
+        <progress id='progress' value='0' max='100' class="mt-3 w-100"></progress>
     </form>
+    <button class="btn btn-secondary mt-4" onclick="location.reload()">Reload Page (generate another image)</button>
+
+</body>
+
 </html>
