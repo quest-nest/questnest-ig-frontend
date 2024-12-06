@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuestNest Image Generator</title>
+    <script src="https://unpkg.com/htmx.org@1.6.1"></script>
+</head>
+
+<body>
+    <h1>HTMX GET Request Example</h1>
+    <button hx-get="http://localhost:8080" hx-target="#response">Click me to GET Root of the API</button>
+    <div id="response"></div>
+
+    <h1>HTMX POST Request Example - upload file, return JSON</h1>
+    <form hx-encoding='multipart/form-data' hx-post='http://localhost:8080/upload-image/'
+        _='on htmx:xhr:progress(loaded, total) set #progress.value to (loaded/total)*100'>
+        <input type='file' name='file'>
+        <button>
+            Upload
+        </button>
+        <progress id='progress' value='0' max='100'></progress>
+    </form>
+
+    <h1>HTMX POST Request Example - upload multiple images and email, return JSON</h1>
+    <!-- curl -X 'POST' \
+    'http://localhost:8080/generate-image/?email=james.twose2711%40gmail.com' \
+    -H 'accept: application/json' \
+    -H 'Content-Type: multipart/form-data' \
+    -F 'user_image=@frank.jpg;type=image/jpeg' \
+    -F 'background_image=@background.jpg;type=image/jpeg' \
+    -F 'foreground_image=@foreground.png;type=image/png' -->
+    <form hx-encoding='multipart/form-data' hx-post='http://localhost:8080/generate-image/'
+        _='on htmx:xhr:progress(loaded, total) set #progress.value to (loaded/total)*100'>
+        <input type='email' name='email' placeholder='Email'>
+        <input type='file' name='user_image'>
+        <input type='file' name='background_image'>
+        <input type='file' name='foreground_image'>
+        <button>
+            Generate Image
+        </button>
+        <progress id='progress' value='0' max='100'></progress>
+    </form>
+</html>
